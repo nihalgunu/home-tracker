@@ -1,0 +1,35 @@
+.home-carousel-container{
+    width: 100vw;
+    background-color: black;
+
+}
+.home-mainView{
+    height: 550px;
+    border: 1px solid gold;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.home-mainView > img{
+    height: 550px;
+    width: 700px;
+}
+.home-card-container{
+    height: 1000px;
+    background-color: lightblue;
+}
+.home-card{
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-image: linear-gradient(to bottom, #10dae8a7, rgba(0, 0, 0, 0.754));
+}
+.home-detail{
+    position: absolute;
+    top: 50px;
+}
+.home-address{
+    color: white;
+    display: flex;
+    align-items: center;
+}
