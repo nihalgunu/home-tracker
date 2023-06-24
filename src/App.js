@@ -1,23 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
+import api from './api/axiosConfig';
+import { useState, useEffect } from 'react';
+import Layout from './components/Layout';
+import {Routes, Route} from 'react-router-dom';
+import Home from './components/home/Home';
+import Header from './components/header/Header';
+import Information from './components/information/Information';
 
 function App() {
+
+  const[homes, setHomes] = useState();
+  const[home, setHome] = useState();
+
+  const getHomes = async () =>{
+    try
+    {
+      
+      const response = await api.get("/api/v1/homes");
+      
+      setHomes(response.data);
+
+    }
+    catch(err)
+    {
+      console.log(err);
+    }
+  }
+
+  const getHomeData = async (homeId) => {
+    try {
+      const response = await api.get(`/api/v1/homes/${homeId}`)
+
+      const singleHome = response.data;
+
+      setHome(singleHome);
+
+    } catch (err) {
+      console.log(err);
+    }
+    
+  }
+
+  useEffect(()=> {
+    getHomes();
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <Routes>  
+        <Route path="/" element={<Layout/>}>
+          <Route path="/" element={<Home homes={homes}/>}></Route>  
+          <Route path="/:homeId" element ={<Information getHomeData = {getHomeData} home={home} />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
